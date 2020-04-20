@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { List, ListItem, ListItemText } from '@material-ui/core';
+import { Box, List, ListItem, ListItemText, Typography } from '@material-ui/core';
 
 class CommentList extends Component {
   render() {
@@ -8,18 +8,22 @@ class CommentList extends Component {
 
     return (
       <div>
-        <p>comment list</p>
-        <List>
-          {comments && comments.length
-            ? comments.map((comment, index) => {
-                return (
-                  <ListItem key={comment.id}>
-                    <ListItemText>{comment.text}</ListItemText>
-                  </ListItem>
-                );
-              })
-            : 'loading...'}
-        </List>
+        <Box component="span" m={1}>
+          <Typography>Comment List</Typography>
+        </Box>
+        <Box component="span" m={1}>
+          <List>
+            {comments && comments.length
+              ? comments.map((comment, index) => {
+                  return (
+                    <ListItem key={comment.id}>
+                      <ListItemText>{comment.text}</ListItemText>
+                    </ListItem>
+                  );
+                })
+              : 'loading...'}
+          </List>
+        </Box>
       </div>
     );
   }

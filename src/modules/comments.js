@@ -5,6 +5,7 @@ export const LOAD_COMMENTS = 'LOAD_COMMENTS';
 export const LOAD_COMMENTS_SUCCESS = 'LOAD_COMMENTS_SUCCESS';
 export const LOAD_COMMENTS_ERROR = 'LOAD_COMMENTS_ERROR';
 export const ADD_COMMENT = 'ADD_COMMENT';
+export const TOGGLE_DIALOG = 'TOGGLE_DIALOG';
 
 // action creators -------------------------------------
 const getComments = () => {
@@ -37,6 +38,12 @@ export const loadComments = () => {
 export const addComment = (payloads) => {
   return {
     type: ADD_COMMENT,
+    payloads,
+  };
+};
+export const toggleDialog = (payloads) => {
+  return {
+    type: TOGGLE_DIALOG,
     payloads,
   };
 };
@@ -78,6 +85,12 @@ export default function reducer(state = [initialState], action) {
       return {
         ...state,
         comments: [...state.comments, { id: 4, user: action.payloads.user, text: action.payloads.text }],
+      };
+    case TOGGLE_DIALOG:
+      console.log(TOGGLE_DIALOG);
+      return {
+        ...state,
+        isDialogOpen: action.payloads,
       };
     default:
       return state;

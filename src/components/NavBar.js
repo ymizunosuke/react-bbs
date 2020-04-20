@@ -4,7 +4,7 @@ import { AppBar, Toolbar, Typography } from '@material-ui/core';
 const NavBar = () => {
   return (
     <div>
-      <AppBar position="static">
+      <AppBar position="absolute">
         <Toolbar>
           <Typography variant="title" color="inherit">
             Example BBS

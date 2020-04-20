@@ -1,18 +1,18 @@
 import React, { Component } from 'react';
-import { Grid, Paper, makeStyles } from '@material-ui/core';
+import { Grid, Paper, Fab } from '@material-ui/core';
+import { withStyles } from '@material-ui/core/styles';
 // containers
-import CommentForm from '../containers/CommentForm';
+import CommentForm, { openDialog } from '../containers/CommentForm';
 import CommentList from '../containers/CommentList';
 import NavBar from './NavBar';
 
-/*
 const style = (theme) => ({
-  Layout: theme.mixins.toolbar,
+  toolbar: theme.mixins.toolbar,
 });
-*/
 
 class Layout extends Component {
   render() {
+    const { classes } = this.props;
     return (
       <div>
         <Grid container justify="cnenter">
@@ -20,6 +20,7 @@ class Layout extends Component {
             <NavBar />
           </Grid>
         </Grid>
+        <div className={classes.toolbar}></div>
         <Grid container justify="center">
           <Grid item xs={6}>
             <CommentForm />
@@ -32,9 +33,12 @@ class Layout extends Component {
             </Paper>
           </Grid>
         </Grid>
+        <Grid container justify="center" alignItems="flex-end">
+          <Grid item xs={6}></Grid>
+        </Grid>
       </div>
     );
   }
 }
 
-export default Layout;
+export default withStyles(style)(Layout);
