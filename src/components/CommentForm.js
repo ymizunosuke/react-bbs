@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { Dialog, DialogTitle, DialogContent, TextField, Button, Box, DialogActions, Fab } from '@material-ui/core';
+import { Dialog, DialogTitle, DialogContent, Button, DialogActions, Fab, useMediaQuery } from '@material-ui/core';
 import { Field, reduxForm } from 'redux-form';
 import { renderTextField } from './inputs/TextField';
+import { renderTextArea } from './inputs/TextArea';
 import CreateIcon from '@material-ui/icons/Create';
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles, useTheme } from '@material-ui/core/styles';
 
 const style = (theme) => ({
   fab: {
@@ -19,6 +20,7 @@ const CommentForm = (props) => {
   const { handleSubmit, onSubmitClick, openDialog, closeDialog, comments } = props;
   const [open, setOpen] = React.useState(false);
   const { classes } = props;
+  const [fullWidth, setFullWidth] = React.useState(true);
   console.log(comments);
 
   return (
@@ -33,67 +35,40 @@ const CommentForm = (props) => {
       >
         <CreateIcon />
       </Fab>
-      <Button color="primary" onClick={openDialog}>
-        aaa
-      </Button>
-      <Dialog open={comments.isDialogOpen} onClose={closeDialog}>
-        <DialogTitle>投稿</DialogTitle>
-        <DialogContent>
-          <Field id="user" name="user" label="user" component={renderTextField} type="text" />
-          <Field id="text" name="text" label="text" component={renderTextField} type="text" />
-        </DialogContent>
-        <DialogActions>
-          <Button variant="contained" color="danger" type="button" onClick={closeDialog}>
-            Cancel
-          </Button>
-          <Button variant="contained" color="primary" type="submit">
-            Submit
-          </Button>
-        </DialogActions>
+      <Dialog open={comments.isDialogOpen} onClose={closeDialog} fullWidth={fullWidth}>
+        <form
+          onSubmit={handleSubmit((values) => {
+            onSubmitClick(values);
+          })}
+        >
+          <DialogTitle>投稿</DialogTitle>
+          <DialogContent>
+            <Field id="user" name="user" label="user" component={renderTextField} type="text" fullWidth />
+            <br />
+            <Field
+              id="text"
+              name="text"
+              label="text"
+              component={renderTextField}
+              multiline
+              rows={10}
+              type="text"
+              fullWidth
+            />
+          </DialogContent>
+          <DialogActions>
+            <Button variant="contained" color="danger" type="button" onClick={closeDialog}>
+              Cancel
+            </Button>
+            <Button variant="contained" color="primary" type="submit">
+              Submit
+            </Button>
+          </DialogActions>
+        </form>
       </Dialog>
     </div>
   );
 };
-
-/*
-class CommentForm extends Component {
-  render() {
-    const { handleSubmit, onSubmitClick } = this.props;
-    const { open, setOpen } = React.useState(false);
-
-    const handleOpen = () => {
-      setOpen(true);
-    };
-    const handleClose = () => {};
-
-    return (
-      <Dialog onClose={handleClose}>
-        <DialogTitle>投稿</DialogTitle>
-        <DialogContent>
-          onSubmit=
-          {handleSubmit((values) => {
-            onSubmitClick(values);
-          })}
-          >
-          <Field id="user" name="user" label="user" component={renderTextField} type="text" />
-          <Field id="text" name="text" label="text" component={renderTextField} type="text" />
-        </DialogContent>
-        <DialogActions>
-          <Button variant="contained" color="primary" type="submit">
-            Submit
-          </Button>
-        </DialogActions>
-      </Dialog>
-    );
-  }
-}
-*/
-
-/*
-export default reduxForm({
-  form: 'commentForm',
-})(CommentForm);
-*/
 
 export default withStyles(style)(
   reduxForm({

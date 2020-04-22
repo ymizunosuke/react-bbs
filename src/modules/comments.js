@@ -84,7 +84,15 @@ export default function reducer(state = [initialState], action) {
       console.log(action);
       return {
         ...state,
-        comments: [...state.comments, { id: 4, user: action.payloads.user, text: action.payloads.text }],
+        comments: [
+          {
+            id: state.comments.length + 1,
+            user: action.payloads.user,
+            text: action.payloads.text,
+            date: action.payloads.date,
+          },
+          ...state.comments,
+        ],
       };
     case TOGGLE_DIALOG:
       console.log(TOGGLE_DIALOG);

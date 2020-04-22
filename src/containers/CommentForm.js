@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
 import CommentForm from '../components/CommentForm';
 import { addComment, toggleDialog } from '../modules/comments';
+import moment from 'moment';
 
 const mapStateToProps = (state) => {
   return {
@@ -12,10 +13,11 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     onSubmitClick(values) {
+      values.date = moment().format('YYYY-MM-DD HH:mm:ss');
       dispatch(addComment(values));
+      dispatch(toggleDialog(false));
     },
     openDialog() {
-      console.log('dialog open');
       dispatch(toggleDialog(true));
     },
     closeDialog() {

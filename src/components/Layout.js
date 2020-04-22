@@ -28,9 +28,7 @@ class Layout extends Component {
         </Grid>
         <Grid container justify="center">
           <Grid item xs={6}>
-            <Paper>
-              <CommentList />
-            </Paper>
+            <CommentList />
           </Grid>
         </Grid>
         <Grid container justify="center" alignItems="flex-end">
